@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _001_Les;
-
-internal static class ColorConsole
+﻿internal static class ColorConsole
 {
 	private static ConsoleColor[] _colors;
 	private static int _index = 0;

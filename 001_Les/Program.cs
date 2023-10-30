@@ -1,6 +1,4 @@
-﻿using _001_Les;
-
-string triangle =
+﻿string triangle =
 """
    /\
   /  \

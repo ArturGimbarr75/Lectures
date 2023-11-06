@@ -1,4 +1,6 @@
-﻿// Task 1
+﻿char a;
+
+// Task 1
 
 string text = "Some text";
 int n = 5;

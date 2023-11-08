@@ -3,30 +3,30 @@ using System.Text;
 
 int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a number: ", string invalidMsg = "Invalid input!")
 {
-predicate ??= _ => true;
-int num;
+	predicate ??= _ => true;
+	int num;
 
-while (true)
-{
-Console.ResetColor();
-Console.Write(inputMsg);
-Console.ForegroundColor = ConsoleColor.Green;
-string? input = Console.ReadLine();
+	while (true)
+	{
+		Console.ResetColor();
+		Console.Write(inputMsg);
+		Console.ForegroundColor = ConsoleColor.Green;
+		string? input = Console.ReadLine();
 
-if (int.TryParse(input, out num) && predicate(num))
-{
-Console.ResetColor();
-break;
-}
-else
-{
-Console.ForegroundColor = ConsoleColor.Red;
-Console.WriteLine(invalidMsg);
-Console.ResetColor();
-}
-}
+		if (int.TryParse(input, out num) && predicate(num))
+		{
+			Console.ResetColor();
+			break;
+		}
+		else
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine(invalidMsg);
+			Console.ResetColor();
+		}
+	}
 
-return num;
+	return num;
 }
 
 // 1.1
@@ -402,30 +402,380 @@ Folder main = new()
 					Name = "Movies",
 					Folders = new Folder[]
 					{
-
+						new Folder()
+						{
+							Name = "Action",
+							Folders = new Folder[]
+							{
+								new Folder()
+								{
+									Name = "John Wick",
+								},
+								new Folder()
+								{
+									Name = "Die Hard",
+								},
+								new Folder()
+								{
+									Name = "The Matrix",
+								},
+								new Folder()
+								{
+									Name = "Terminator",
+								},
+								new Folder()
+								{
+									Name = "Mission: Impossible",
+								}
+							}
+						},
+						new Folder()
+						{
+							Name = "Comedy",
+							Folders = new Folder[]
+							{
+								new()
+								{
+									Name = "The Hangover",
+								},
+								new()
+								{
+									Name = "The Naked Gun",
+								},
+								new()
+								{
+									Name = "The Big Lebowski",
+								},
+								new()
+								{
+									Name = "Airplane!",
+								},
+								new()
+								{
+									Name = "Monty Python and the Holy Grail",
+								}
+							}
+						},
+						new Folder()
+						{
+							Name = "Drama",
+							Folders = new Folder[]
+							{
+								new()
+								{
+									Name = "The Shawshank Redemption",
+								},
+								new()
+								{
+									Name = "The Godfather",
+								},
+								new()
+								{
+									Name = "The Dark Knight",
+								},
+								new()
+								{
+									Name = "Forrest Gump",
+								},
+								new()
+								{
+									Name = "Schindler's List",
+								}
+							}
+						},
+						new Folder()
+						{
+							Name = "Horror",
+							Folders = new Folder[]
+							{
+								new()
+								{
+									Name = "The Shining",
+								},
+								new()
+								{
+									Name = "The Exorcist",
+								},
+								new()
+								{
+									Name = "The Thing",
+								},
+								new()
+								{
+									Name = "Alien",
+								},
+								new()
+								{
+									Name = "Halloween",
+								}
+							}
+						},
+						new Folder()
+						{
+							Name = "Thriller",
+							Folders = new Folder[]
+							{
+								new()
+								{
+									Name = "Seven",
+								},
+								new()
+								{
+									Name = "The Silence of the Lambs",
+								},
+								new()
+								{
+									Name = "The Usual Suspects",
+								},
+								new()
+								{
+									Name = "Memento",
+								},
+								new()
+								{
+									Name = "The Departed",
+								}
+							}
+						}
 					}
 				},
 				new()
 				{
 					Name = "TV Shows",
+					Folders = new Folder[]
+					{
+						new Folder()
+						{
+							Name = "Action",
+						},
+						new Folder()
+						{
+							Name = "Comedy",
+						},
+						new Folder()
+						{
+							Name = "Drama",
+						},
+						new Folder()
+						{
+							Name = "Horror",
+						},
+						new Folder()
+						{
+							Name = "Thriller",
+						}
+					}
 				},
 				new()
 				{
 					Name = "Video Podcasts",
+					Folders = new Folder[]
+					{
+						new Folder()
+						{
+							Name = "Action",
+						},
+						new Folder()
+						{
+							Name = "Comedy",
+						},
+						new Folder()
+						{
+							Name = "Drama",
+						},
+						new Folder()
+						{
+							Name = "Horror",
+						},
+						new Folder()
+						{
+							Name = "Thriller",
+						}
+					}
 				}
 			}
 		},
 		new()
 		{
 			Name = "Documents",
+			Folders = new Folder[]
+			{
+				new Folder()
+				{
+					Name = "Text",
+				},
+				new Folder()
+				{
+					Name = "PDF",
+				},
+				new Folder()
+				{
+					Name = "Word",
+				},
+				new Folder()
+				{
+					Name = "Excel",
+				},
+				new Folder()
+				{
+					Name = "PowerPoint",
+				},
+				new Folder()
+				{
+					Name = "Other",
+				}
+			}
 		},
 		new()
 		{
 			Name = "Images",
+			Folders = new Folder[]
+			{
+				new Folder()
+				{
+					Name = "JPEG",
+					Folders = new Folder[]
+					{
+						new()
+						{
+							Name = "Nature",
+						},
+						new()
+						{
+							Name = "Animals",
+						},
+						new()
+						{
+							Name = "People",
+						},
+						new()
+						{
+							Name = "Cities",
+						}
+					}
+				},
+				new Folder()
+				{
+					Name = "PNG",
+				},
+				new Folder()
+				{
+					Name = "GIF",
+					Folders = new Folder[]
+					{
+						new()
+						{
+							Name = "Cars",
+						},
+						new()
+						{
+							Name = "Games",
+						}
+					}
+				},
+				new Folder()
+				{
+					Name = "Other",
+				}
+			}
 		},
 		new()
 		{
 			Name = "Other",
+			Folders = new Folder[]
+			{
+				new Folder()
+				{
+					Name = "Archives",
+				},
+				new Folder()
+				{
+					Name = "Trash",
+					Folders = new Folder[]
+					{
+						new()
+						{
+							Name = "C",
+						},
+						new()
+						{
+							Name = "C++",
+						},
+						new()
+						{
+							Name = "JS",
+						}
+					}
+				}
+			}
 		}
 	}
 };
+
+void SetParrent(Folder folder, Folder? parrent = null)
+{
+	folder.Parrent = parrent;
+	foreach (Folder f in folder.Folders)
+	{
+		SetParrent(f, folder);
+	}
+}
+
+void PrintFolder(Folder folder, int level = 0)
+{
+	string tab = new('\t', level);
+	Console.WriteLine($"{tab}{folder.Name}");
+	if (folder.Folders.Length == 0)
+		return;
+	Console.WriteLine($"{tab}{{");
+	foreach (Folder f in folder.Folders)
+		PrintFolder(f, level + 1);
+	Console.WriteLine($"{tab}}}");
+}
+
+SetParrent(main);
+
+int choice = -1;
+Folder? currentFolder = main;
+List<Folder> path = new() { currentFolder };
+do
+{
+	Console.Clear();
+	Console.Write("Current folder: ");
+	Console.WriteLine(string.Join(" -> ", path.Select(x => x.Name)));
+
+    int foldersCount = currentFolder?.Folders.Length ?? 0;
+	for (int i = 0; i < foldersCount; i++)
+		Console.WriteLine($"\t {i + 1} -> {currentFolder?.Folders[i].Name}");
+	Console.WriteLine("\n\t-1 -> Back");
+    Console.WriteLine("\t-2 -> Exit");
+
+	int folderIndex = GetNumber(x => x >= -2 && x <= foldersCount + 1 && x != 0, $"Select folder (1 - {foldersCount}): ");
+
+	switch (folderIndex)
+	{
+		case -2:
+			choice = 0;
+			break;
+
+		case -1:
+			if (currentFolder?.Parrent is not null)
+			{
+				currentFolder = currentFolder.Parrent;
+				path.RemoveAt(path.Count - 1);
+			}
+			break;
+
+		default:
+			if (currentFolder?.Folders[folderIndex - 1] is not null)
+			{
+				currentFolder = currentFolder.Folders[folderIndex - 1];
+				path.Add(currentFolder);
+			}
+			break;
+	}
+}
+while (choice != 0);
+
+Console.Clear();
+PrintFolder(main);

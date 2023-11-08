@@ -30,7 +30,6 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 }
 
 // 1.1
-/*
 {
 	Console.Write("Enter a text: ");
 	string? text = Console.ReadLine();
@@ -363,7 +362,7 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 		Console.WriteLine("Invalid names");
 	}
 }
-*/
+
 
 // Project
 

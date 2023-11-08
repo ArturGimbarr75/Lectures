@@ -28,7 +28,7 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 
 	return num;
 }
-
+/*
 // 1.1
 {
 	Console.Write("Enter a text: ");
@@ -125,7 +125,7 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 	}
     Console.WriteLine();
 }
-
+*/
 // 2.3
 {
 	Console.Write("Enter your date of birth (dd/mm/yyyy): ");
@@ -139,9 +139,8 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 			{
 				DateTime dateOfBirth = new(year, month, day);
 				DateTime dateOf90thBirthday = dateOfBirth.AddYears(90);
-				DateTime now = DateTime.Now;
-				TimeSpan age = now - dateOfBirth;
-				TimeSpan timeTo90thBirthday = dateOf90thBirthday - now;
+				TimeSpan age = DateTime.Now - dateOfBirth;
+				TimeSpan timeTo90thBirthday = dateOf90thBirthday - DateTime.Now;
 				Console.WriteLine($"You are {age.Days / 365} years old");
 				Console.WriteLine(
 					$"""
@@ -220,11 +219,13 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 	{
 		Console.WriteLine("Word not 'hello'");
 	}
+	Console.WriteLine("Press any key to continue");
+	Console.ReadKey();
 }
 
 // 4.1
 {
-
+	Console.Clear();
 	int ingridient = -1; 
 	float price = 0;
 	StringBuilder order = new("Sandwich with:\n");
@@ -259,11 +260,15 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 			order.Append($"Price: {price}");
 	}
 	while (ingridient != 0);
+	Console.Clear();
     Console.WriteLine(order.ToString());
+	Console.WriteLine("Press any key to continue");
+	Console.ReadKey();
 }
 
 // 5.1
 {
+	Console.Clear();
 	Console.Write("Enter a phone number: ");
 	string? phoneNumber = Console.ReadLine();
 	// code, country, random price of minute
@@ -333,6 +338,9 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 	{
 		Console.WriteLine("Invalid phone number");
 	}
+	Console.WriteLine("Press any key to continue");
+	Console.ReadKey();
+	Console.Clear();
 }
 
 // 6
@@ -355,14 +363,16 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 			>= 50 and <= 70 => "Right for each other",
 			_ => "Not compatible"
 		};
-        Console.WriteLine(loveDescription);
-    }
+		Console.WriteLine(loveDescription);
+	}
 	else
 	{
 		Console.WriteLine("Invalid names");
 	}
+	Console.WriteLine("Press any key to continue");
+	Console.ReadKey();
+	Console.Clear();
 }
-
 
 // Project
 

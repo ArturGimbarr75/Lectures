@@ -28,7 +28,7 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 
 	return num;
 }
-/*
+
 // 1.1
 {
 	Console.Write("Enter a text: ");
@@ -125,7 +125,7 @@ int GetNumber(Func<int, bool>? predicate = null, string inputMsg = "Enter a numb
 	}
     Console.WriteLine();
 }
-*/
+
 // 2.3
 {
 	Console.Write("Enter your date of birth (dd/mm/yyyy): ");

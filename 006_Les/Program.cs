@@ -1,4 +1,6 @@
-﻿// Task1_1();
+﻿using _006_Les;
+
+// Task1_1();
 // Task1_2();
 // Task1_3();
 
@@ -16,8 +18,6 @@
 // Task5_1();
 // Task5_2();
 //Task5_3();
-
-using _006_Les;
 
 Project();
 

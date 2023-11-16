@@ -7,6 +7,11 @@
 
 	public static int Fibonacci(int number)
 	{
-		return number == 0 ? 0 : number == 1 ? 1 : Fibonacci(number - 1) + Fibonacci(number - 2);
+		return number switch
+		{
+			0 => 0,
+			1 => 1,
+			_ => Fibonacci(number - 1) + Fibonacci(number - 2)
+		};
 	}
 }

@@ -34,7 +34,7 @@
 
 		// Task3
 		{
-			int number = 10;
+			int number = 100;
 			Console.WriteLine($"Factorial of {number} is {Task3.Factorial(number)}");
 			Console.WriteLine($"Fibonacci of {number} is {Task3.Fibonacci(number)}");
 		}

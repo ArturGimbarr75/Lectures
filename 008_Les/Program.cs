@@ -31,7 +31,7 @@
 
 	double number = 5;
 	double divider = 0;
-	if (Task2.TryDivide(number, divider, out double result))
+	if (Task2.TryDivide(number, divider, out double result, out int remainder))
 	{
 		Console.WriteLine($"{number} / {divider} = {result}");
 	}

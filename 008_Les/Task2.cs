@@ -20,16 +20,18 @@ static class Task2
 		while (surname is null);
 	}
 
-	public static bool TryDivide(double num, double divider, out double result)
+	public static bool TryDivide(double num, double divider, out double result, out int remainder)
 	{
 		if (divider == 0)
 		{
 			result = 0;
+			remainder = 0;
 			return false;
 		}
 		else
 		{
 			result = num / divider;
+			remainder = (int)num % (int)divider;
 			return true;
 		}
 	}

@@ -27,4 +27,4 @@ Console.WriteLine();
 for (int i = 1, n = int.Parse(Console.ReadLine()!); i <= n; i++, Console.WriteLine("*"));
 
 // Task 6
-for (int i = 0; i < 100; Console.Write($"{i}, "), i += 3) ; 
+for (int i = 0; i < 100; Console.Write($"{i}, "), i += 3) ;

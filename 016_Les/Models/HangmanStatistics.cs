@@ -1,5 +1,7 @@
-﻿internal class HangmanStatistics
+﻿internal class HangmanStatistics : IScorableGameStatistics
 {
+	public string GameName => "Hangman";
+
 	public int GamesPlayed => GamesLost + GamesWon;
 	public int GamesWon { get; set; }
 	public int GamesLost { get; set; }

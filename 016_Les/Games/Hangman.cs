@@ -1,125 +1,125 @@
 ﻿internal class Hangman
 {
 	const int MAX_HEALTH = 8;
-	string[] words =
+	string[] _words =
 	{
-	"HEALTH",
-	"BOOK",
-	"HOUSE",
-	"COMPUTER",
-	"PROGRAMMING",
-	"TELEVISION",
-	"MOUSE",
-	"KEYBOARD",
-	"MOUSEPAD",
-	"MONITOR"
-};
-	string[] hangmans = new string[]
+		"HEALTH",
+		"BOOK",
+		"HOUSE",
+		"COMPUTER",
+		"PROGRAMMING",
+		"TELEVISION",
+		"MOUSE",
+		"KEYBOARD",
+		"MOUSEPAD",
+		"MONITOR"
+	};
+	string[] _hangmans =
 	{
-	// 0
-	"""
-	 +----+ 
-	 |    |  
-	 |    o
-	 |   /|\
-	 |    |
-	 |   / \
-	 |
-	-+--------
-	""",
-	// 1
-	"""
-	 +----+ 
-	 |    |  
-	 |    o
-	 |   /|\
-	 |    |
-	 |   / 
-	 |
-	-+--------
-	""",
-	// 2
-	"""
-	 +----+ 
-	 |    |  
-	 |    o
-	 |   /|\
-	 |    |
-	 |    
-	 |
-	-+--------
-	""",
-	// 3
-	"""
-	 +----+ 
-	 |    |  
-	 |    o
-	 |   /|
-	 |    |
-	 |   
-	 |
-	-+--------
-	""",
-	// 4
-	"""
-	 +----+ 
-	 |    |  
-	 |    o
-	 |    |
-	 |    |
-	 |   
-	 |
-	-+--------
-	""",
-	// 5
-	"""
-	 +----+ 
-	 |    |  
-	 |    o
-	 |    
-	 |    
-	 |   
-	 |
-	-+--------
-	""",
-	// 6
-	"""
-	 +----+ 
-	 |    |  
-	 |    
-	 |    
-	 |    
-	 |   
-	 |
-	-+--------
-	""",
-	// 7
-	"""
-	 +----+ 
-	 |      
-	 |    
-	 |    
-	 |    
-	 |   
-	 |
-	-+--------
-	""",
-	// 8
-	"""
-	 +    
-	 |      
-	 |    
-	 |    
-	 |    
-	 |   
-	 |
-	-+--------
-	"""
+		// 0
+		"""
+		 +----+ 
+		 |    |  
+		 |    o
+		 |   /|\
+		 |    |
+		 |   / \
+		 |
+		-+--------
+		""",
+		// 1
+		"""
+		 +----+ 
+		 |    |  
+		 |    o
+		 |   /|\
+		 |    |
+		 |   / 
+		 |
+		-+--------
+		""",
+		// 2
+		"""
+		 +----+ 
+		 |    |  
+		 |    o
+		 |   /|\
+		 |    |
+		 |    
+		 |
+		-+--------
+		""",
+		// 3
+		"""
+		 +----+ 
+		 |    |  
+		 |    o
+		 |   /|
+		 |    |
+		 |   
+		 |
+		-+--------
+		""",
+		// 4
+		"""
+		 +----+ 
+		 |    |  
+		 |    o
+		 |    |
+		 |    |
+		 |   
+		 |
+		-+--------
+		""",
+		// 5
+		"""
+		 +----+ 
+		 |    |  
+		 |    o
+		 |    
+		 |    
+		 |   
+		 |
+		-+--------
+		""",
+		// 6
+		"""
+		 +----+ 
+		 |    |  
+		 |    
+		 |    
+		 |    
+		 |   
+		 |
+		-+--------
+		""",
+		// 7
+		"""
+		 +----+ 
+		 |      
+		 |    
+		 |    
+		 |    
+		 |   
+		 |
+		-+--------
+		""",
+		// 8
+		"""
+		 +    
+		 |      
+		 |    
+		 |    
+		 |    
+		 |   
+		 |
+		-+--------
+		"""
 	};
 
 	public void Play()
 	{
-		string selectedWord = words[Random.Shared.Next(0, words.Length)];
+		string selectedWord = _words[Random.Shared.Next(0, _words.Length)];
 		string usedLetters = "";
 		int health = MAX_HEALTH;
 		int guessedLetters = 0;
@@ -132,7 +132,7 @@
 			Console.Clear();
 
 			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.WriteLine(hangmans[health]);
+			Console.WriteLine(_hangmans[health]);
 
 			Console.ForegroundColor = ConsoleColor.Red;
 			for (int i = 0; i < health; i++)
@@ -197,6 +197,7 @@
 			AuthorizedUser.Instance!.GamesStatistics.Hangman.Scores.Add(-5);
 		}
 
+		new MockUserTable().UpdateUser(AuthorizedUser.Instance!);
 		Console.ResetColor();
 	}
 }

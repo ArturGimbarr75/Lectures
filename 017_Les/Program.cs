@@ -91,15 +91,40 @@
 		Console.WriteLine(product);
 }
 
-class Store
+// 3_1 - 3_2
 {
-	public string Name { get; set; } = string.Empty;
-	public DateTime Opened { get; set; }
-	public List<string> Products { get; set; } = new();
-
-	public Store(string name, DateTime opened)
+	string[] GetAnimalNames(params AnimalBase[] animals)
 	{
-		Name = name;
-		Opened = opened;
+		string[] names = new string[animals.Length];
+		for (int i = 0; i < animals.Length; i++)
+			names[i] = animals[i].Name;
+		return names;
 	}
+
+	AnimalBase[] animals = new AnimalBase[]
+	{
+		new Cat("Felix"),
+		new Dog("Rex"),
+		new Hamster("Duda")
+	};
+
+	string[] names = GetAnimalNames(animals);
+	Console.WriteLine("Animal names:");
+	foreach (string name in names)
+		Console.WriteLine(name);
+}
+
+// 3_3
+{
+	ShapeBase[] shapes =
+	{
+		new Circle(5),
+		new Rectangle(5, 10),
+		new Square(5),
+		new Triangle(5, 10, 10),
+		new Rhombus(5, 10)
+	};
+
+	foreach (ShapeBase shape in shapes)
+		Console.WriteLine($"{shape.Name} peimeter: {shape.Perimeter:0.00}; area: {shape.Area:0.00}");
 }

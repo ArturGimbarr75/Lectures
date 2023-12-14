@@ -1,4 +1,5 @@
 ﻿// 1_1
+
 {
 	Person p1 = new();
 
@@ -127,4 +128,55 @@
 
 	foreach (ShapeBase shape in shapes)
 		Console.WriteLine($"{shape.Name} peimeter: {shape.Perimeter:0.00}; area: {shape.Area:0.00}");
+}
+
+{
+	Dictionary<string, int> GetCountOfAnimalsByType(List<AnimalBase> animals)
+	{
+		Dictionary<string, int> countOfAnimalsByType = new();
+
+		foreach (AnimalBase animal in animals)
+		{
+			string animalType = animal.GetType().Name;
+			if (countOfAnimalsByType.ContainsKey(animalType))
+				countOfAnimalsByType[animalType]++;
+			else
+				countOfAnimalsByType.Add(animalType, 1);
+		}
+
+		return countOfAnimalsByType;
+	}
+
+	List<Cat> cats = new()
+	{
+		new("Felix"),
+		new("Tom"),
+		new("Garfield"),
+		new("Sylvester"),
+	};
+
+	List<Dog> dogs = new()
+	{
+		new("Rex"),
+		new("Spike"),
+		new("Pluto"),
+		new("Scooby-Doo"),
+	};
+
+	List<Hamster> hamsters = new()
+	{
+		new("Duda"),
+		new("Buddy"),
+		new("Peanut"),
+		new("Nibbles"),
+	};
+
+	List<AnimalBase> animals = new();
+	animals.AddRange(cats);
+	animals.AddRange(dogs);
+	animals.AddRange(hamsters);
+	Dictionary<string, int> countOfAnimalsByType = GetCountOfAnimalsByType(animals);
+	Console.WriteLine("Count of animals by type:");
+	foreach (var item in countOfAnimalsByType)
+		Console.WriteLine($"{item.Key}: {item.Value}");
 }

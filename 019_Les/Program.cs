@@ -63,8 +63,3 @@ PrintSeparator();
 }
 
 void PrintSeparator() => Console.WriteLine("\n\n" + new string('-', 50) + "\n\n");
-
-class Programmer : Employee
-{
-	public string ProgrammingLanguage { get; set; } = "C#";
-}

@@ -1,5 +1,4 @@
-﻿
-class Programmer : Employee
+﻿class Programmer : Employee
 {
 	public Programmer(string name, int age, int salary)
 		: base(name, age, salary) { }

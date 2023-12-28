@@ -1,7 +1,8 @@
-﻿// 1_1
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
 
+/*
+// 1_1
 {
     Console.WriteLine("1_1");
     Console.WriteLine(File.ReadAllText("data.txt"));
@@ -40,8 +41,8 @@ using System.Text;
 {
     using Stream wStream = File.OpenWrite("Vector3.bin");
     using BinaryWriter bWriter = new(wStream);
-    Vector3 wVector = new(1, 2, 3);
-    bWriter.Write(wVector.ToByteArray());
+    Vector3 wVector = new(10, 2, 45);
+    //bWriter.Write(wVector.ToByteArray());
     bWriter.Dispose();
     wStream.Dispose();
 
@@ -50,23 +51,23 @@ using System.Text;
     Vector3 rVector = Vector3.FromByteArray(bReader.ReadBytes(12));
     Console.WriteLine(rVector);
 }
-
+*/
 // 3_1
 {
     Console.WriteLine("3_1");
     Stopwatch stopwatch = new();
-    FileStream reader = new("BigFile.txt", FileMode.Open, FileAccess.Read, FileShare.None, 4096);
     List<byte> bytes = new();
     int buffer;
 
     stopwatch.Start();
-    while ((buffer = reader.ReadByte()) != -1)
-        bytes.Add((byte)buffer);
+    using FileStream reader = new("BigFile.txt", FileMode.Open, FileAccess.Read, FileShare.None, 34000);
+    //while (reader.ReadByte() != -1);
+        //bytes.Add((byte)buffer);
+	reader.Dispose();
 
     stopwatch.Stop();
     Console.Write("FileStream: ");
     Console.WriteLine(stopwatch.ElapsedMilliseconds);
-	reader.Dispose();
 
     stopwatch.Restart();
     bytes.Clear();
@@ -76,7 +77,7 @@ using System.Text;
     Console.Write("File.ReadAllText: ");
     Console.WriteLine(stopwatch.ElapsedMilliseconds);
 }
-
+/*
 // 3_2
 {
     // async reader
@@ -91,7 +92,7 @@ using System.Text;
 
 // 3_3
 {
-    FileStream fs = new("key-value.txt", FileMode.CreateNew, FileAccess.ReadWrite, FileShare.ReadWrite);
+    FileStream fs = new("key-value.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
     StreamWriter sw = new(fs);
     for (int i = 0; i < 100; i++)
 		sw.WriteLine($"{i} {Random.Shared.Next(0, 1000)}");
@@ -103,8 +104,11 @@ using System.Text;
 	using StreamReader sr = new("key-value.txt");
 	while (!sr.EndOfStream)
     {
-        string[] line = sr.ReadLine().Split(' ');
-        keyValue.Add(int.Parse(line[0]), int.Parse(line[1]));
+        string l= sr.ReadLine()!;
+        if (string.IsNullOrEmpty(l))
+			continue;
+        string[] line = l.Split(' ');
+        keyValue.TryAdd(int.Parse(line[0]), int.Parse(line[1]));
 	}
 
     Console.WriteLine(keyValue[0]);
@@ -117,4 +121,4 @@ using System.Text;
     Console.WriteLine(keyValue[7]);
     Console.WriteLine(keyValue[8]);
     Console.WriteLine(keyValue[9]);
-}
+}*/

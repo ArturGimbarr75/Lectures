@@ -25,7 +25,7 @@ Console.WriteLine("\n\n");
 IPolygon[] polygons =
 {
 	new Triangle(new(-2, 0), new(2, 0), new(2, 3)),
-	new Square(new (5, 5), 5, 45)
+	new Square(new (5, 5), 3, 45)
 };
 
 foreach (IPolygon polygon in polygons)

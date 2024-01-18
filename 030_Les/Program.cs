@@ -10,10 +10,8 @@ Array.Sort(vehicles, new CarComparer());
 
 foreach (Car vehicle in vehicles)
 {
-	while (vehicle.Fuel > 0)
-	{
-		vehicle.Drive();
-	}
+	while (vehicle.Drive());
+	vehicle.Refuel();
 
     Console.WriteLine();
 }

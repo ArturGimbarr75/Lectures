@@ -4,6 +4,7 @@
 	public int FuelUssage { get; private set; }
 	public int Fuel { get; private set; }
 	public int FuelCapacity { get; private set; }
+	public bool HasFuel => Fuel > 0;
 
     public Car() : this("Unknown", 10, 0, 60) { }
 
@@ -15,17 +16,18 @@
 		FuelCapacity = fuelCapacity;
 	}
 
-    public void Drive()
+    public bool Drive()
 	{
-		if (Fuel == 0)
+		if (!HasFuel)
 		{
 			Console.WriteLine($"{Model} No fuel!");
-			return;
+			return false;
 		}
 
 		Fuel -= FuelUssage;
 		Fuel = Math.Max(Fuel, 0);
 		Console.WriteLine($"Driving a {Model}. Fuel volume: {Fuel} L.\"");
+		return true;
 	}
 
 	public void Refuel()

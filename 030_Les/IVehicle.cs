@@ -1,5 +1,5 @@
 ﻿interface IVehicle
 {
-	void Drive();
+	bool Drive();
 	void Refuel();
 }

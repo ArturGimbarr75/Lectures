@@ -1,10 +1,16 @@
-﻿using ATM;
+﻿//#define MOCK
+
+using ATM;
 using ATM.Actions;
 using ATM.Models;
 
 IDB db;
-//db = new MockDB();
+#if MOCK
+db = new MockDB();
+#else
 db = new DB();
+#endif
+
 Account? account = null;
 
 Registration registration = new(db);

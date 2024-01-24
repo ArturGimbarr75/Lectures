@@ -1,4 +1,5 @@
 ﻿using ATM.Models;
+using System.Data.Entity;
 
 namespace ATM;
 
@@ -32,7 +33,7 @@ internal class DB : IDB
 
 	public Account? GetAccount(string name)
 	{
-		return _context.Accounts.FirstOrDefault(a => a.Name == name);
+		return _context.Accounts.Include(a => a.Cards).Include(a => a.Transactions).FirstOrDefault(a => a.Name == name);
 	}
 
 	public bool UpdateAccount(Account account)

@@ -8,6 +8,12 @@ public class Card
 	public string Number { get; set; } = string.Empty;
 	public string PinHash { get; set; } = string.Empty;
 	public Guid AccountId { get; set; }
+#if MOCK
 	[JsonIgnore]
+#endif
 	public virtual Account Account { get; set; } = new();
+#if MOCK
+	[JsonIgnore]
+#endif
+	public virtual List<Transaction> Transactions { get; set; } = new();
 }

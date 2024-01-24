@@ -2,7 +2,9 @@
 using ATM.Actions;
 using ATM.Models;
 
-MockDB db = new();
+IDB db;
+//db = new MockDB();
+db = new DB();
 Account? account = null;
 
 Registration registration = new(db);

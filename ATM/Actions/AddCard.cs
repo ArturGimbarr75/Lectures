@@ -7,10 +7,10 @@ namespace ATM.Actions;
 
 internal class AddCard
 {
-	private readonly MockDB _db;
+	private readonly IDB _db;
 	private readonly Account _account;
 
-	public AddCard(MockDB db, Account account)
+	public AddCard(IDB db, Account account)
 	{
 		_db = db;
 		_account = account;

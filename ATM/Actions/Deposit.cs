@@ -4,10 +4,10 @@ namespace ATM.Actions;
 
 internal class Deposit
 {
-	private readonly MockDB _db;
+	private readonly IDB _db;
 	private readonly Account _account;
 
-	public Deposit(MockDB db, Account account)
+	public Deposit(IDB db, Account account)
 	{
 		_db = db;
 		_account = account;

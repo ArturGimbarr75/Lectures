@@ -1,11 +1,8 @@
 ﻿using ATM.Models;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Text.Json;
-
 namespace ATM;
 
-internal class MockDB
+internal class MockDB : IDB
 {
 	private List<Account> Accounts { get; set; }
 

@@ -4,10 +4,10 @@ namespace ATM.Actions;
 
 internal class Withdraw
 {
-	private readonly MockDB _db;
+	private readonly IDB _db;
 	private readonly Account _account;
 
-	public Withdraw(MockDB db, Account account)
+	public Withdraw(IDB db, Account account)
 	{
 		_db = db;
 		_account = account;

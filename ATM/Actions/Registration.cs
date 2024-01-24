@@ -7,9 +7,9 @@ namespace ATM.Actions;
 
 internal class Registration
 {
-	private readonly MockDB _db;
+	private readonly IDB _db;
 
-	public Registration(MockDB db)
+	public Registration(IDB db)
 	{
 		_db = db;
 	}

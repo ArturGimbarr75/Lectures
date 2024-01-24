@@ -6,9 +6,9 @@ namespace ATM.Actions;
 
 internal class Login
 {
-	private readonly MockDB _db;
+	private readonly IDB _db;
 
-	public Login(MockDB db)
+	public Login(IDB db)
 	{
 		_db = db;
 	}

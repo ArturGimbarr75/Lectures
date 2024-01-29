@@ -1,4 +1,4 @@
-﻿//#define MOCK
+﻿// #define MOCK
 
 using ATM;
 using ATM.Actions;

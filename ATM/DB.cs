@@ -33,7 +33,15 @@ internal class DB : IDB
 
 	public Account? GetAccount(string name)
 	{
-		return _context.Accounts.Include(a => a.Cards).Include(a => a.Transactions).FirstOrDefault(a => a.Name == name);
+		var accaunt = _context.Accounts.FirstOrDefault(a => a.Name == name);
+
+		if (accaunt is not null)
+		{
+			_context.Entry(accaunt).Collection(a => a.Cards).Load();
+			_context.Entry(accaunt).Collection(a => a.Transactions).Load();
+		}
+
+		return accaunt;
 	}
 
 	public bool UpdateAccount(Account account)

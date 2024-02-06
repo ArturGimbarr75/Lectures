@@ -1,8 +1,9 @@
-﻿// CheckProgress();
-CheckDesctop();
+﻿await CheckProgress();
+//CheckDesctop();
 
-void CheckProgress()
+async Task CheckProgress()
 {
+	Console.CursorVisible = false;
 	Console.Write("Write count of works: ");
 	int count = int.Parse(Console.ReadLine()!);
 	Console.Write("Write length of progress bar: ");
@@ -23,7 +24,7 @@ void CheckProgress()
 		works[i] = work.DoWorkAsync();
 	}
 
-	Task.WaitAll(works);
+	await Task.WhenAll(works);
 	Console.SetCursorPosition(0, count + 2);
 	Console.WriteLine("\nAll done!");
 }

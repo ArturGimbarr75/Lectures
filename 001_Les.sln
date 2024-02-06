@@ -67,7 +67,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "031_Les", "031_Les\031_Les.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ATM", "ATM\ATM.csproj", "{607CA778-1793-402E-9C74-0709D4809C43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "032_Les", "032_Les\032_Les.csproj", "{2EB4DD77-C823-4520-BCFF-C83785741E28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "032_Les", "032_Les\032_Les.csproj", "{2EB4DD77-C823-4520-BCFF-C83785741E28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "033_Les", "033_Les\033_Les.csproj", "{8C26DE72-07B5-4E86-8E27-568BC7D91AFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant", "Restaurant\Restaurant.csproj", "{8AD2C4F5-38E7-4CEF-B9A9-E99C04DF0A7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -207,6 +211,14 @@ Global
 		{2EB4DD77-C823-4520-BCFF-C83785741E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EB4DD77-C823-4520-BCFF-C83785741E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EB4DD77-C823-4520-BCFF-C83785741E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C26DE72-07B5-4E86-8E27-568BC7D91AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C26DE72-07B5-4E86-8E27-568BC7D91AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C26DE72-07B5-4E86-8E27-568BC7D91AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C26DE72-07B5-4E86-8E27-568BC7D91AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD2C4F5-38E7-4CEF-B9A9-E99C04DF0A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD2C4F5-38E7-4CEF-B9A9-E99C04DF0A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD2C4F5-38E7-4CEF-B9A9-E99C04DF0A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD2C4F5-38E7-4CEF-B9A9-E99C04DF0A7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

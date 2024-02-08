@@ -59,6 +59,5 @@ internal class OcupationRepository : IOcupationRepository
 
 		_dbContext.SaveChanges();
 		return ocupationToUpdate;
-
 	}
 }

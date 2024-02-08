@@ -1,4 +1,5 @@
 ﻿using Restaurant.DB.Repositories;
+using Restaurant.Models;
 
 namespace Restaurant.Menus.Customer;
 
@@ -48,53 +49,31 @@ internal class EndOcupation : MenuBase
 		Console.WriteLine(" Tables:");
 		Console.ForegroundColor = ConsoleColor.Blue;
 
-		for (int i = 0; i < GlobalVars.MAX_TABLE_COUNT; i++)
+		for (int i = 0; i < customers.Count; i++)
 		{
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.Write($" {i + 1, 3}) ");
 			
-			Models.Customer? customer = customers.FirstOrDefault(c => c.Ocupations.Any(o => o.Table == i + 1 && o.End == null));
-			if (customer is not null)
-			{
-				Console.ForegroundColor = ConsoleColor.Yellow;
-				Console.WriteLine($"{customer.Name,-20} {customer.Ocupations.Max(o => o.Start)}");
-			}
-			else
-			{
-				Console.ForegroundColor = ConsoleColor.DarkYellow;
-				Console.WriteLine("Empty");
-			}
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine($"{customers[i].Name,-20} {customers[i].Ocupations.Max(o => o.Start)}");
 
 			Console.ResetColor();
 		}
+        Console.WriteLine($" {customers.Count + 1, 3}) Back");
 
-		Console.ResetColor();
+        Console.ResetColor();
 	}
 
 	private void EndOcupationAtTable(List<Models.Customer> customers)
 	{
-		Console.Write(" Enter table number: ");
-		int table = GetInput(1, GlobalVars.MAX_TABLE_COUNT);
-		while (customers.All(c => c.Ocupations.Any(o => o.Table == table)))
-		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine(" No customer at that table!");
-			Console.ResetColor();
-			Console.Write(" Enter table number: ");
-			table = GetInput(1, GlobalVars.MAX_TABLE_COUNT);
-		}
-			
-		Models.Customer? customer = customers.FirstOrDefault(c => c.Ocupations.Any(o => o.Table == table && o.End == null));
-		if (customer is null)
-		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine(" No customer at that table!");
-			Console.ResetColor();
+		Console.Write(" Enter customer: ");
+		int number = GetInput(1, customers.Count + 1);
+		if (number == customers.Count + 1)
 			return;
-		}
 
-		IOcupationRepository ocupationRepo = GlobalVars.OcupationRepository;
-		Models.Ocupation? ocupation = ocupationRepo.GetLastByCustomer(customer.Id);
+		Models.Customer customer = customers[number - 1];
+
+		Models.Ocupation? ocupation = customer.Ocupations.FirstOrDefault(o => o.End == null);
 		if (ocupation is null)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
@@ -103,10 +82,11 @@ internal class EndOcupation : MenuBase
 			return;
 		}
 
+		IOcupationRepository ocupationRepo = GlobalVars.OcupationRepository;
 		ocupation.End = DateTime.Now;
 		ocupationRepo.Update(ocupation);
 		Console.ForegroundColor = ConsoleColor.Green;
-		Console.WriteLine($"{customer.Name} has left the table {table}.");
+		Console.WriteLine($"{customer.Name} has left the table {ocupation.Table}.");
 		Console.ResetColor();
 	}
 }

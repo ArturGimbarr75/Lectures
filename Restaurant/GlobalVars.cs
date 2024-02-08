@@ -12,4 +12,5 @@ internal static class GlobalVars
 	public static ICustomerRepository CustomerRepository { get; set; } = default!;
 	public static IOcupationRepository OcupationRepository { get; set; } = default!;
 	public static IDishRepository DishRepository { get; set; } = default!;
+	public static IOrderRepository OrderRepository { get; set; } = default!;
 }

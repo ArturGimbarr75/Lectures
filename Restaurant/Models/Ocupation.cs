@@ -6,5 +6,6 @@ public class Ocupation
 	public DateTime Start { get; set; }
 	public DateTime? End { get; set; }
 	public int Table { get; set; }
+	public int CustomerId { get; set; }
 	public virtual Customer Customer { get; set; } = default!;
 }

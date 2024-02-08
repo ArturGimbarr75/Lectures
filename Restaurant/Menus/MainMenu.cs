@@ -8,6 +8,7 @@ internal class MainMenu : MenuBase
 	public MainMenu(MenuBase? parrent) : base(parrent)
 	{
 		_subMenus.Add(new Customer.CustomerMenu(this));
+		_subMenus.Add(new Order.OrderMenu(this));
 		_subMenus.Add(new Dishes.DishesMenu(this));
 	}
 }

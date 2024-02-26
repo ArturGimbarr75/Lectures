@@ -23,4 +23,4 @@ public class Context : DbContext
 			.WithOne(b => b.Author)
 			.HasForeignKey(b => b.AuthorId);
 	}
-}
+} 

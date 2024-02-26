@@ -1,5 +1,8 @@
-﻿namespace Models;
+﻿using Microsoft.EntityFrameworkCore;
 
+namespace Models;
+
+[Index(nameof(Name), nameof(Surname))]
 public class Author
 {
 	public Guid Id { get; set; }

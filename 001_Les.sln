@@ -73,7 +73,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "033_Les", "033_Les\033_Les.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant", "Restaurant\Restaurant.csproj", "{8AD2C4F5-38E7-4CEF-B9A9-E99C04DF0A7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "034_Les", "034_Les\034_Les.csproj", "{4646D669-0CAE-4DF2-BE2C-92CA3907F046}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "034_Les", "034_Les\034_Les.csproj", "{4646D669-0CAE-4DF2-BE2C-92CA3907F046}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "035_Les", "035_Les\035_Les.csproj", "{A5352B4A-7A98-4ADC-B146-1A965A17FECC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -225,6 +227,10 @@ Global
 		{4646D669-0CAE-4DF2-BE2C-92CA3907F046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4646D669-0CAE-4DF2-BE2C-92CA3907F046}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4646D669-0CAE-4DF2-BE2C-92CA3907F046}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5352B4A-7A98-4ADC-B146-1A965A17FECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5352B4A-7A98-4ADC-B146-1A965A17FECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5352B4A-7A98-4ADC-B146-1A965A17FECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5352B4A-7A98-4ADC-B146-1A965A17FECC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

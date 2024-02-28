@@ -1,0 +1,127 @@
+﻿@page "/folder/{id:int}"
+@using _036_V2_Les.Models
+@using _036_V2_Les.DB.Repositories
+
+<PageTitle>Folder</PageTitle>
+
+<div class="container">
+    <div class="row align-content-center text-center">
+        <h1>@_folder?.Name</h1>
+        <h5>@_folder?.Path</h5>
+    </div>
+</div>
+
+    
+<div class="row align-content-center">
+    <div class="col-12 row align-content-center">
+        @foreach (var file in _files)
+		{
+			<div class="col-4 align-content-center">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">@file.Name</h5>
+                        <h6 class="card-body">Path:<br />@file.Path[_pathSymbolsSkip..^file.Name.Length]</h6>
+
+                        <div class="card-body">
+                            
+                            @if (_selectedFile is not null && _selectedFile.Id == file.Id)
+                            {
+                                <h6>Tags:</h6>
+                                @foreach (var tag in _tags)
+                                {
+                                    if (_tagIds.Contains(tag.Id))
+                                    {
+                                        <button class="btn-primary btn" @onclick="() => _tagIds.Remove(tag.Id)"><h2>@tag.Name</h2></button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn-secondary btn" @onclick="() => _tagIds.Add(tag.Id)"><h2>@tag.Name</h2></button>
+                                    }
+                                }
+                            }
+                            else
+							{
+                                <h6>Tags:
+								@foreach (var tag in file.Tags)
+							    {
+								    <span class="badge bg-primary">@tag?.Name</span>
+							    }
+                                </h6>
+							}  
+                            <br />
+                            @if (_selectedFile is null || _selectedFile.Id != file.Id)
+							{
+                                <button class="btn btn-primary" @onclick="@(() => ManageTags(file))">Manage tags</button>
+							    <button class="btn btn-danger" @onclick="() => DeleteFile(file.Id)">Delete</button>
+                            }
+                            else
+                            {
+								<button class="btn btn-primary" @onclick="@(Save)">Save</button>
+							}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public int Id { get; set; } 
+
+    [Inject] private IMainFolderRepository _folderRepository { get; set; } = default!;
+    [Inject] private ITagRepository _tagRepository { get; set; } = default!;
+    [Inject] private IFileRepository _fileRepository { get; set; } = default!;
+
+    private MainFolder? _folder = default;
+    private List<File> _files = new List<File>();
+    private List<Tag> _tags = new List<Tag>();
+    private int _pathSymbolsSkip = 0;
+
+    private HashSet<int> _tagIds = new();
+    private File? _selectedFile = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _tags = (await _tagRepository.GetTags()).ToList();
+        _folder = await _folderRepository.GetMainFolder(Id);
+
+        if (_folder is not null)
+        {
+            _pathSymbolsSkip = _folder.Path.Length;
+            _files = (await _fileRepository.GetFilesByFolderIdWithTags(_folder.Id)).ToList();
+        }
+    }
+
+    private async Task DeleteFile(int id)
+    {
+        await _fileRepository.DeleteFile(id);
+
+        if (_folder is not null)
+        {
+            _pathSymbolsSkip = _folder.Path.Length;
+            _files = (await _fileRepository.GetFilesByFolderIdWithTags(_folder.Id)).ToList();
+        }
+    }
+
+    private async Task ManageTags(File file)
+    {
+        _selectedFile = file;
+        _tagIds = (await _fileRepository.GetFileTagsIds(file.Id)).ToHashSet();
+    }
+
+    private async Task Save()
+    {
+        if (_selectedFile is null)
+            return;
+
+        await _fileRepository.RemoveAllTags(_selectedFile.Id);
+
+        foreach (Tag tag in _tags.Where(t => _tagIds.Contains(t.Id)))
+            await _fileRepository.AddTag(_selectedFile.Id, tag);
+
+        _selectedFile = null;
+        _tagIds.Clear();
+    }
+}

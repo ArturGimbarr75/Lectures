@@ -1,0 +1,29 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<div class="container">
+	<div class="row align-content-center">
+		<div class="col-6 align-content-center">
+			<InputText @bind-Value="_path" class="form-control" />
+			<button class="btn btn-primary" @onclick="AddFolder">Add folder</button>
+		</div>
+	</div>
+</div>
+
+<div class="align-content-center">
+	<h1 class="text-center">Folders</h1>
+	@foreach (var folder in _folders)
+	{
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">@folder.Name</h5>
+				<h6 class="card-body">Path: @folder.Path</h6>
+				<button class="btn btn-primary" @onclick="@(() => _navigationManager.NavigateTo($"/folder/{folder.Id}"))">Open</button>
+				<button class="btn btn-danger" @onclick="() => DeleteFolder(folder.Id)">Delete</button>
+			</div>
+		</div>
+	}
+</div>
+
+

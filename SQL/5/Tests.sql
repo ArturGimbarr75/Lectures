@@ -1,0 +1,14 @@
+EXEC spSelectAllEmployees;
+EXEC spSelectEmployeePersonalCodes;
+EXEC spSelectEmployeeNamesAndPosition;
+EXEC spSelectDistinctDepartmentNames;
+EXEC spSelectEmployeesByDepartment @DepartmentName = 'C#';
+EXEC spSelectPositionByName @FirstName = 'Giedrius';
+EXEC spSelectEmployeesByBirthDate @BirthDate = '1986-09-19';
+EXEC spSelectEmployeeByLastName @LastName = 'Sabutis';
+EXEC spSelectDevelopersFromDepartment @DepartmentName = 'Java', @Position = 'Developer';
+EXEC spInsertEmployee @PersonalCode = '12345678901', @FirstName = 'John', @LastName = 'Doe', @StartDate = '2024-02-01', @BirthDate = '1990-01-01', @Position = 'Developer', @DepartmentName = 'Java', @ProjectID = 1;
+EXEC spUpdateEmployee @PersonalCode = '12345678901', @Position = 'Senior Developer', @DepartmentName = 'Java', @ProjectID = 2;
+EXEC spDeleteEmployee @PersonalCode = '12345678901';
+EXEC spUpdatePositionByLastName @LastName = 'Antanaitis', @NewPosition = 'Tester';
+EXEC spCountEmployeesByPosition @Position = 'Tester';

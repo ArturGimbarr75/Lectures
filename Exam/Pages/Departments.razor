@@ -1,0 +1,119 @@
+﻿@page "/"
+@using Exam.Models
+@using Exam.Repos
+
+<PageTitle>Departments</PageTitle>
+
+<h1 class="text-center">Departments</h1>
+
+<div class="row">
+	<h3 class="text-center">Add department</h3>
+	<div class="col-4 offset-4 row">
+		<InputText @bind-Value="_department.Name" class="form-control" />
+		<button class="offset-4 col-4 btn btn-primary" @onclick="AddDepartment">Add</button>
+	</div>
+</div>
+
+<br />
+<div class="row justify-content-center">
+	@if (_departments is { Count: 0 })
+	{
+	<div class="text-center">
+		<h3>No departments</h3>
+	</div>
+	}
+	else
+	{
+		foreach (var department in _departments)
+		{
+			<div class="card col-3 m-4">
+				<div class="card-header">
+					<h5 class="card-title text-center">@department.Name</h5>
+				</div>
+
+				<div class="card-body">
+					<div class="text-center p-2">
+						<h5><b>Lectures</b></h5>
+						@foreach (var lecture in department.Lectures)
+						{
+							<h6>@lecture.Name</h6>
+						}
+					</div>
+					@if (_departmentToUpdate?.Id != department.Id && _departmentToDelete?.Id != department.Id)
+					{
+						<button class="btn btn-primary offset-4" @onclick="() => _departmentToUpdate = department">Update</button>
+						<button class="btn btn-danger" @onclick="() => _departmentToDelete = department">Delete</button>
+					}		
+					@if (_departmentToUpdate is not null && _departmentToUpdate.Id == department.Id)
+					{
+						<div class="text-center">
+							<h5>Write new name:</h5>
+							<InputText @bind-Value="_departmentToUpdate.Name" class="form-control" />
+							<button class="btn btn-primary" @onclick="() => UpdateDepartment(_departmentToUpdate)">Save</button>
+							<button class="btn btn-danger" @onclick="() => _departmentToUpdate = null">Cancel</button>
+						</div>
+					}
+					@if (_departmentToDelete is not null && _departmentToDelete.Id == department.Id)
+					{
+						<div class="text-center">
+							<h5>Are you sure?</h5>
+							<button class="btn btn-danger" @onclick="() => DeleteDepartment(_departmentToDelete.Id)">Yes</button>
+							<button class="btn btn-primary" @onclick="() => _departmentToDelete = null">No</button>
+						</div>
+					}
+				</div>
+				<div class="card-footer text-center">
+					<button class="btn btn-primary" @onclick='() => _navigationManager.NavigateTo($"/departmentinfo/{department.Id}")'>Info</button>
+				</div>
+			</div>
+		}
+	}
+</div>
+
+@code {
+
+	[Inject] private IDepartmentRepository _departmentRepository { get; set; } = default!;
+	[Inject] private ILectureRepository _lectureRepository { get; set; } = default!;
+
+	[Inject] private NavigationManager _navigationManager { get; set; } = default!;
+
+	private Department _department = new Department();
+	private Department? _departmentToUpdate;
+	private Department? _departmentToDelete;
+	private List<Department> _departments = new List<Department>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await GetDepartments();
+	}
+
+	private async Task AddDepartment()
+	{
+		if (string.IsNullOrWhiteSpace(_department.Name))
+		{
+			return;
+		}
+
+		await _departmentRepository.AddDepartmentAsync(_department);
+		await GetDepartments();
+		_department = new Department();
+	}
+
+	private async Task DeleteDepartment(Guid id)
+	{
+		await _departmentRepository.DeleteDepartmentAsync(id);
+		await GetDepartments();
+	}
+
+	private async Task UpdateDepartment(Department department)
+	{
+		await _departmentRepository.UpdateDepartmentAsync(department);
+		_departmentToUpdate = null;
+		await GetDepartments();
+	}
+
+	private async Task GetDepartments()
+	{
+		_departments = (await _departmentRepository.GetDepartmentsWithLecturesAsync()).ToList();
+	}
+}

@@ -1,0 +1,101 @@
+﻿@page "/departmentinfo/{id:guid}"
+@using Exam.Models
+@using Exam.Repos
+
+<PageTitle>DepartmentInfo</PageTitle>
+
+@if (_department is null)
+{
+	<h3>Department not found</h3>
+}
+else
+{
+	<div class="row">
+		<h1 class="text-center">@(_department.Name)</h1>
+	</div>
+	<h3 class="text-center">Lectures</h3>
+	<div class="row justify-content-center">
+		<div class="col-3 border rounded-2 bg-light row justify-content-center">
+			<h4 class="text-center p-1 m-1">Included</h4>
+			@foreach (var lecture in _includedLectures)
+			{
+				<div class="card col-9 text-center p-1 m-1">
+					<div class="card-header">
+						<h5 class="card-title text-center">@lecture.Name</h5>
+					</div>
+					<div class="card-body text-center">
+						<button class="btn btn-danger" @onclick="() => ExcludeLecture(lecture)">Exclude</button>
+					</div>
+					<div class="card-footer text-center">
+						<button class="btn btn-primary">Info</button>
+					</div>
+				</div>
+			}
+		</div>
+
+		<div class="offset-1 col-3 border rounded-2 bg-light row justify-content-center">
+			<h4 class="text-center p-1 m-1">Excluded</h4>
+			@foreach (var lecture in _excludedLectures)
+			{
+				<div class="card col-9 text-center p-1 m-1">
+					<div class="card-header">
+						<h5 class="card-title text-center">@lecture.Name</h5>
+					</div>
+					<div class="card-body text-center">
+						<button class="btn btn-success text-center" @onclick="() => IncludeLecture(lecture)">Include</button>
+					</div>
+					<div class="card-footer text-center">
+						<button class="btn btn-primary">Info</button>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+}
+
+@code {
+
+	[Inject] private IDepartmentRepository _departmentRepository { get; set; } = default!;
+	[Inject] private ILectureRepository _lectureRepository { get; set; } = default!;
+
+	[Parameter] public Guid Id { get; set; }
+
+	private Department? _department = null;
+
+	private List<Lecture> _includedLectures = new();
+	private List<Lecture> _excludedLectures = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		_department = await _departmentRepository.GetDepartmentAsync(Id);
+
+		await UpdateLectures();
+	}
+
+	private async Task UpdateLectures()
+	{
+		if (_department is not null)
+		{
+			_includedLectures = (await _lectureRepository.GetLecturesByDepartmentIdAsync(_department.Id)).ToList();
+			_excludedLectures = (await _lectureRepository.GetLecturesNotInDepartmentAsync(_department.Id)).ToList();
+		}
+	}
+
+	private async Task IncludeLecture(Lecture lecture)
+	{
+		if (_department is not null)
+		{
+			await _departmentRepository.IncludeLectureAsync(_department.Id, lecture.Id);
+			await UpdateLectures();
+		}
+	}
+
+	private async Task ExcludeLecture(Lecture lecture)
+	{
+		if (_department is not null)
+		{
+			await _departmentRepository.ExcludeLectureAsync(_department.Id, lecture.Id);
+			await UpdateLectures();
+		}
+	}
+}

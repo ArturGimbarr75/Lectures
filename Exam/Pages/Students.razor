@@ -1,0 +1,59 @@
+﻿@page "/students"
+@using Exam.Models
+@using Exam.Repos
+@using BlazorBootstrap
+
+<PageTitle>Students</PageTitle>
+
+<h2 class="text-center">Add student</h2>
+<div class="m-2">
+	<div class="justify-content-center row m-2">
+		<div class="col-4 text-center">
+			<input class="form-control" @bind="this._student.Name" placeholder="Student Name" />
+		</div>
+		<div class="col-1">
+			<Dropdown class="text-center">
+				<DropdownToggleButton Color="ButtonColor.Secondary">@(_student.Department?.Name ?? "Department")</DropdownToggleButton>
+				<DropdownMenu>
+					@foreach (var department in _departments)
+					{
+						<DropdownItem @onclick="() => _student.Department = department">@department.Name</DropdownItem>
+					}
+				</DropdownMenu>
+			</Dropdown>
+		</div>
+	</div>
+	<div class="justify-content-center row m-2">
+		<button class="btn btn-primary col-3" @onclick="AddStudent">Add</button>
+	</div>
+</div>
+
+@code {
+
+	[Inject] private IDepartmentRepository _departmentRepository { get; set; } = default!;
+	[Inject] private ILectureRepository _lectureRepository { get; set; } = default!;
+	[Inject] private IStudentRepository _studentRepository { get; set; } = default!;
+
+	private Student _student = new Student();
+	private List<Student> _students = new List<Student>();
+	private List<Department> _departments = new List<Department>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		_departments = (await _departmentRepository.GetDepartmentsAsync()).ToList();
+		_student.Department = _departments.First();
+		await GetStudents();
+	}
+
+	private async Task AddStudent()
+	{
+		await _studentRepository.AddStudentAsync(_student);
+		_student = new Student();
+		await GetStudents();
+	}
+
+	private async Task GetStudents()
+	{
+		_students = (await _studentRepository.GetStudentsAsync()).ToList();
+	}
+}

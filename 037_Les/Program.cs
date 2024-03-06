@@ -39,7 +39,6 @@ var personById = await repository.GetByIdAsync(1);
 Console.WriteLine("Person by id: 1");
 Console.WriteLine($"{personById?.Id} {personById?.Name} {personById?.Surname} {personById?.BirthDate}");
 
-
 public class Person
 {
     public int Id { get; set; }

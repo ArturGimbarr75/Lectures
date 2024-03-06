@@ -1,0 +1,110 @@
+﻿@page "/lectures"
+@using Exam.Models
+@using Exam.Repos
+
+<PageTitle>Lectures</PageTitle>
+
+<h1 class="text-center">Lectures</h1>
+
+<div class="row">
+	<h3 class="text-center">Add lecture</h3>
+	<div class="col-4 offset-4 row">
+		<InputText @bind-Value="_lecture.Name" class="form-control" />
+		<button class="offset-4 col-4 btn btn-primary" @onclick="AddLecture">Add</button>
+	</div>
+</div>
+
+<br />
+<div class="row">
+	@if (_lectures is { Count: 0 })
+	{
+		<div class="text-center">
+			<h3>No lectures</h3>
+		</div>
+	}
+	else
+	{
+		foreach (var department in _lectures)
+		{
+			<div class="card col-3">
+				<div class="card-header">
+					<h5 class="card-title text-center">@department.Name</h5>
+				</div>
+
+				<div class="card-body">
+					@if (_lectureToUpdate?.Id != department.Id && _lectureToDelete?.Id != department.Id)
+					{
+						<button class="btn btn-primary offset-4" @onclick="() => _lectureToUpdate = department">Update</button>
+						<button class="btn btn-danger" @onclick="() => _lectureToDelete = department">Delete</button>
+					}
+					@if (_lectureToUpdate is not null && _lectureToUpdate.Id == department.Id)
+					{
+						<div class="text-center">
+							<h5>Write new name:</h5>
+							<InputText @bind-Value="_lectureToUpdate.Name" class="form-control" />
+							<button class="btn btn-primary" @onclick="() => UpdateLecture(_lectureToUpdate)">Save</button>
+							<button class="btn btn-danger" @onclick="() => _lectureToUpdate = null">Cancel</button>
+						</div>
+					}
+					@if (_lectureToDelete is not null && _lectureToDelete.Id == department.Id)
+					{
+						<div class="text-center">
+							<h5>Are you sure?</h5>
+							<button class="btn btn-danger" @onclick="() => DeleteLecture(_lectureToDelete.Id)">Yes</button>
+							<button class="btn btn-primary" @onclick="() => _lectureToDelete = null">No</button>
+						</div>
+					}
+				</div>
+				<div class="card-footer text-center">
+					<button class="btn btn-primary" @onclick='() => _navigationManager.NavigateTo($"/lectureinfo/{department.Id}")'>Info</button>
+				</div>
+			</div>
+		}
+	}
+</div>
+
+@code {
+
+	[Inject] private ILectureRepository _lectureRepository { get; set; } = default!;
+	[Inject] private NavigationManager _navigationManager { get; set; } = default!;
+
+	private Lecture _lecture = new Lecture();
+	private Lecture? _lectureToUpdate;
+	private Lecture? _lectureToDelete;
+	private List<Lecture> _lectures = new List<Lecture>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await GetDepartments();
+	}
+
+	private async Task AddLecture()
+	{
+		if (string.IsNullOrWhiteSpace(_lecture.Name))
+		{
+			return;
+		}
+
+		await _lectureRepository.AddLectureAsync(_lecture);
+		await GetDepartments();
+		_lecture = new Lecture();
+	}
+
+	private async Task DeleteLecture(Guid id)
+	{
+		await _lectureRepository.DeleteLectureAsync(id);
+		await GetDepartments();
+	}
+
+	private async Task UpdateLecture(Lecture lecture)
+	{
+		await _lectureRepository.UpdateLectureAsync(lecture);
+		_lectureToUpdate = null;
+		await GetDepartments();
+	}
+
+	private async Task GetDepartments()
+	{
+		_lectures = (await _lectureRepository.GetLecturesAsync()).ToList();
+	}
+}

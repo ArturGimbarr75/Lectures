@@ -28,6 +28,67 @@
 	</div>
 </div>
 
+<h2 class="text-center">Students</h2>
+<div class="m-2">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Department</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var student in _students)
+			{
+				@if (_studentToDelete == student)
+				{
+					<tr>
+						<td colspan="4">
+							<div class="alert alert-danger">
+								Are you sure you want to delete @student.Name?
+								<button class="btn btn-danger" @onclick="async () => { await _studentRepository.DeleteStudentAsync(student.Id); _studentToDelete = null; await GetStudents(); }">Yes</button>
+								<button class="btn btn-primary" @onclick="() => _studentToDelete = null">No</button>
+							</div>
+						</td>
+					</tr>
+				}
+				else if (_studentToUpdate == student)
+				{
+					<tr>
+						<td>
+							<input class="form-control" @bind="student.Name" />
+						</td>
+						<td>
+							<div class="col-1">
+								<Dropdown class="text-center">
+									<DropdownToggleButton Color="ButtonColor.Secondary">@(student.Department?.Name ?? "Department")</DropdownToggleButton>
+									<DropdownMenu>
+										@foreach (var department in _departments)
+										{
+											<DropdownItem @onclick="() => student.Department = department">@department.Name</DropdownItem>
+										}
+									</DropdownMenu>
+								</Dropdown>
+							</div>
+						</td>
+						<td><button class="btn btn-primary" @onclick="async () => { await _studentRepository.UpdateStudentAsync(student); _studentToUpdate = null; await GetStudents(); }">Save</button></td>
+						<td><button class="btn btn-danger" @onclick="() => _studentToUpdate = null">Cancel</button></td>
+					</tr>
+				}
+				else
+				{
+					<tr>
+						<td>@student.Name</td>
+						<td>@student.Department.Name</td>
+						<td><button class="btn btn-primary" @onclick="() => _studentToUpdate = student">Update</button></td>
+						<td><button class="btn btn-danger" @onclick="() => _studentToDelete = student">Delete</button></td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</div>
+
 @code {
 
 	[Inject] private IDepartmentRepository _departmentRepository { get; set; } = default!;
@@ -38,15 +99,20 @@
 	private List<Student> _students = new List<Student>();
 	private List<Department> _departments = new List<Department>();
 
+	private Student? _studentToDelete;
+	private Student? _studentToUpdate;
+
 	protected override async Task OnInitializedAsync()
 	{
 		_departments = (await _departmentRepository.GetDepartmentsAsync()).ToList();
-		_student.Department = _departments.First();
 		await GetStudents();
 	}
 
 	private async Task AddStudent()
 	{
+		if (_student.Department is null)
+			return;
+
 		await _studentRepository.AddStudentAsync(_student);
 		_student = new Student();
 		await GetStudents();

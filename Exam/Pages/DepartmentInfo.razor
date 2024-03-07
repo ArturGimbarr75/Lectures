@@ -51,12 +51,36 @@ else
 			}
 		</div>
 	</div>
+
+	
+	<div class="justify-content-center row">
+		<h2 class="text-center">Students</h2>
+
+		<table class="table table-striped col-6">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Department</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var student in _students)
+				{
+					<tr>
+						<td>@student.Name</td>
+						<td>@student.Department.Name</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @code {
 
 	[Inject] private IDepartmentRepository _departmentRepository { get; set; } = default!;
 	[Inject] private ILectureRepository _lectureRepository { get; set; } = default!;
+	[Inject] private IStudentRepository _studentRepository { get; set; } = default!;
 
 	[Parameter] public Guid Id { get; set; }
 
@@ -65,11 +89,15 @@ else
 	private List<Lecture> _includedLectures = new();
 	private List<Lecture> _excludedLectures = new();
 
+	private List<Student> _students = new();
+
 	protected override async Task OnInitializedAsync()
 	{
 		_department = await _departmentRepository.GetDepartmentAsync(Id);
 
 		await UpdateLectures();
+
+		_students = (await _studentRepository.GetStudentsByDepartmentIdAsync(Id)).ToList();
 	}
 
 	private async Task UpdateLectures()

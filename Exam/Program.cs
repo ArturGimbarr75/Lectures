@@ -1,5 +1,6 @@
 using Exam.Repos;
 using Exam.Repos.EF;
+using Exam.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<ILectureRepository, LectureRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+
+builder.Services.AddScoped<IStudentLecturesService, StudentLecturesService>();
+builder.Services.AddScoped<IDepartmentLecturesService, DepartmentLecturesService>();
 
 var app = builder.Build();
 

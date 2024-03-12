@@ -82,6 +82,9 @@
 						<td>@student.Department.Name</td>
 						<td><button class="btn btn-primary" @onclick="() => _studentToUpdate = student">Update</button></td>
 						<td><button class="btn btn-danger" @onclick="() => _studentToDelete = student">Delete</button></td>
+						<td>
+							<button class="btn btn-primary" @onclick='() => _navigationManager.NavigateTo($"/studentinfo/{student.Id}")'>Manage lectures</button>
+						</td>
 					</tr>
 				}
 			}
@@ -94,6 +97,8 @@
 	[Inject] private IDepartmentRepository _departmentRepository { get; set; } = default!;
 	[Inject] private ILectureRepository _lectureRepository { get; set; } = default!;
 	[Inject] private IStudentRepository _studentRepository { get; set; } = default!;
+
+	[Inject] private NavigationManager _navigationManager { get; set; } = default!;
 
 	private Student _student = new Student();
 	private List<Student> _students = new List<Student>();

@@ -1,18 +1,18 @@
-﻿@page "/departmentinfo/{id:guid}"
+﻿@page "/studentinfo/{id:guid}"
 @using Exam.Models
 @using Exam.Repos
 @using Exam.Services
 
 <PageTitle>DepartmentInfo</PageTitle>
 
-@if (_department is null)
+@if (_student is null)
 {
 	<h3>Department not found</h3>
 }
 else
 {
 	<div class="row">
-		<h1 class="text-center">@(_department.Name)</h1>
+		<h1 class="text-center">@(_student.Name)</h1>
 	</div>
 	<h3 class="text-center">Lectures</h3>
 	<div class="row justify-content-center">
@@ -52,80 +52,50 @@ else
 			}
 		</div>
 	</div>
-
-	
-	<div class="justify-content-center row">
-		<h2 class="text-center">Students</h2>
-
-		<table class="table table-striped col-6">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Department</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var student in _students)
-				{
-					<tr>
-						<td>@student.Name</td>
-						<td>@student.Department.Name</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
 }
 
 @code {
 
-	[Inject] private IDepartmentRepository _departmentRepository { get; set; } = default!;
-	[Inject] private ILectureRepository _lectureRepository { get; set; } = default!;
 	[Inject] private IStudentRepository _studentRepository { get; set; } = default!;
-
-	[Inject] private IDepartmentLecturesService _departmentService { get; set; } = default!;
+	[Inject] private IStudentLecturesService _studentLecturesService { get; set; } = default!;
 
 	[Parameter] public Guid Id { get; set; }
 
-	private Department? _department = null;
-
+	private Student? _student;
 	private List<Lecture> _includedLectures = new();
 	private List<Lecture> _excludedLectures = new();
 
-	private List<Student> _students = new();
 
 	protected override async Task OnInitializedAsync()
 	{
-		_department = await _departmentRepository.GetDepartmentAsync(Id);
+		_student = await _studentRepository.GetStudentAsync(Id);
 
 		await UpdateLectures();
-
-		_students = (await _studentRepository.GetStudentsByDepartmentIdAsync(Id)).ToList();
 	}
 
 	private async Task UpdateLectures()
 	{
-		if (_department is not null)
+		if (_student is not null)
 		{
-			_includedLectures = (await _lectureRepository.GetLecturesByDepartmentIdAsync(_department.Id)).ToList();
-			_excludedLectures = (await _lectureRepository.GetLecturesNotInDepartmentAsync(_department.Id)).ToList();
+			_includedLectures = (await _studentRepository.GetLecturesAsync(_student.Id)).ToList();
+			_excludedLectures = (await _studentRepository.GetLecturesNotAsignedToStudentAsync(_student.Id)).ToList();
 		}
 	}
 
 	private async Task IncludeLecture(Lecture lecture)
 	{
-		if (_department is not null)
+		if (_student is not null)
 		{
-			await _departmentService.AddLectureToDepartment(_department.Id, lecture.Id);
+			await _studentLecturesService.AddLectureToStudent(_student.Id, lecture.Id);
 			await UpdateLectures();
 		}
 	}
 
 	private async Task ExcludeLecture(Lecture lecture)
 	{
-		if (_department is not null)
+		if (_student is not null)
 		{
-			await _departmentService.RemoveLectureFromDepartment(_department.Id, lecture.Id);
+			await _studentLecturesService.RemoveLectureFromStudent(_student.Id, lecture.Id);
 			await UpdateLectures();
 		}
 	}

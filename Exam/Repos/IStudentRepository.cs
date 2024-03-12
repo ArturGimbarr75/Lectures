@@ -11,4 +11,8 @@ public interface IStudentRepository
 	Task<Student?> DeleteStudentAsync(Guid id);
 	Task<IEnumerable<Student>> GetStudentsByDepartmentIdAsync(Guid departmentId);
 	Task<IEnumerable<Student>> GetStudentsNotInDepartmentAsync(Guid departmentId);
+	Task<Lecture?> IncludeLectureAsync(Guid studentId, Guid lectureId);
+	Task<Lecture?> ExcludeLectureAsync(Guid studentId, Guid lectureId);
+	Task<IEnumerable<Lecture>> GetLecturesAsync(Guid studentId);
+	Task<IEnumerable<Lecture>> GetLecturesNotAsignedToStudentAsync(Guid studentId);
 }

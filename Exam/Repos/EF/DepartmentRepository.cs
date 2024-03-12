@@ -87,4 +87,19 @@ public class DepartmentRepository : IDepartmentRepository
 
         return existingDepartment;
     }
+
+    public async Task<bool> HasLectureAsync(Guid departmentId, Guid lectureId)
+    {
+		return await _context.Departments.Where(d => d.Id == departmentId).AnyAsync(d => d.Lectures.Any(l => l.Id == lectureId));
+    }
+
+	public async Task<bool> HasStudentAsync(Guid departmentId, Guid studentId)
+	{
+		return await _context.Departments.Where(d => d.Id == departmentId).AnyAsync(d => d.Students.Any(s => s.Id == studentId));
+	}
+
+	public async Task<IEnumerable<Student>> GetAllStudents(Guid departmentId)
+    {
+        return await Task.FromResult(_context.Students.Where(s => s.DepartmentId == departmentId).AsEnumerable());
+    }
 }

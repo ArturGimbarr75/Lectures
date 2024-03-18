@@ -85,9 +85,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "037_Les", "037_Les\037_Les.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exam", "Exam\Exam.csproj", "{AD53CBF3-56EA-4E08-90AD-CFC579000413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "038_Les", "038_Les\038_Les.csproj", "{D7B3A7B7-779F-4E9D-AE5B-37426C75C365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "038_Les", "038_Les\038_Les.csproj", "{D7B3A7B7-779F-4E9D-AE5B-37426C75C365}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "038_Les_Tests", "038_Les_Tests\038_Les_Tests.csproj", "{7406EE02-2D08-4F23-8E28-A7AE9101F339}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "038_Les_Tests", "038_Les_Tests\038_Les_Tests.csproj", "{7406EE02-2D08-4F23-8E28-A7AE9101F339}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamTests", "ExamTests\ExamTests.csproj", "{B72DBC1B-71E1-4CF8-998A-DE9961D5C2FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -267,6 +269,10 @@ Global
 		{7406EE02-2D08-4F23-8E28-A7AE9101F339}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7406EE02-2D08-4F23-8E28-A7AE9101F339}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7406EE02-2D08-4F23-8E28-A7AE9101F339}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B72DBC1B-71E1-4CF8-998A-DE9961D5C2FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B72DBC1B-71E1-4CF8-998A-DE9961D5C2FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B72DBC1B-71E1-4CF8-998A-DE9961D5C2FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B72DBC1B-71E1-4CF8-998A-DE9961D5C2FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

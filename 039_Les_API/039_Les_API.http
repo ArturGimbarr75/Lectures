@@ -1,0 +1,6 @@
+@_039_Les_API_HostAddress = http://localhost:5097
+
+GET {{_039_Les_API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

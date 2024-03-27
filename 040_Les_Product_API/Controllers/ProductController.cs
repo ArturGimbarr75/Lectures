@@ -26,19 +26,19 @@ public class ProductController : ControllerBase
 		return await _productService.GetProduct(id);
 	}
 
-	[HttpPost]
+	[HttpPost(Name = nameof(CreateProduct))]
 	public async Task<ActionResult<Product?>> CreateProduct(Product product)
 	{
 		return await _productService.CreateProduct(product);
 	}
 
-	[HttpPut]
+	[HttpPut(Name = nameof(UpdateProduct))]
 	public async Task<ActionResult<Product?>> UpdateProduct(Product product)
 	{
 		return await _productService.UpdateProductProduct(product);
 	}
 
-	[HttpDelete]
+	[HttpDelete(Name = nameof(DeleteProduct))]
 	public async Task<ActionResult> DeleteProduct(int id)
 	{
 		return await _productService.DeleteProduct(id);

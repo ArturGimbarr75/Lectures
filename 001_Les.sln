@@ -95,7 +95,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "039_Les_API", "039_Les_API\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "040_Les_Product_API", "040_Les_Product_API\040_Les_Product_API.csproj", "{24611875-69AC-4923-8FA7-5585237E90A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "041_Les_Car_API", "041_Les_Car_API\041_Les_Car_API.csproj", "{F2012A75-C2BE-43BB-8572-EAFFAF263D64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "041_Les_Car_API", "041_Les_Car_API\041_Les_Car_API.csproj", "{F2012A75-C2BE-43BB-8572-EAFFAF263D64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "042_Les_External_API​", "042_Les_External_API​\042_Les_External_API​.csproj", "{24B09D34-2047-4CBE-B6E3-E44B281A99DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -291,6 +293,10 @@ Global
 		{F2012A75-C2BE-43BB-8572-EAFFAF263D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2012A75-C2BE-43BB-8572-EAFFAF263D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2012A75-C2BE-43BB-8572-EAFFAF263D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B09D34-2047-4CBE-B6E3-E44B281A99DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B09D34-2047-4CBE-B6E3-E44B281A99DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B09D34-2047-4CBE-B6E3-E44B281A99DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B09D34-2047-4CBE-B6E3-E44B281A99DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

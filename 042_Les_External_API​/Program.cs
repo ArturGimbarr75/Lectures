@@ -1,6 +1,7 @@
 using _042_Les_External_API.Repositories.EF;
 using _042_Les_External_API.Repositories;
 using _042_Les_External_API.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 
-builder.Services.AddSingleton<IWeatherRepository, WeatherRepository>();
-builder.Services.AddHttpClient<IWeatherService, WeatherService>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddTransient<IWeatherRepository, WeatherRepository>();
+builder.Services.AddTransient<IWeatherService, WeatherService>();
 
 var app = builder.Build();
 

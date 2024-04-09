@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace _042_Les_External_API​.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("[controller]/[action]")]
 	public class WeatherController : ControllerBase
 	{
 		private readonly IWeatherService _weatherService;
@@ -17,15 +17,29 @@ namespace _042_Les_External_API​.Controllers
 			_weatherRepository = weatherRepository;
 		}
 
-		[HttpGet]
-		public async Task<IActionResult> Get([FromQuery] string city)
+		[HttpGet(Name = "GetMeanTemperature")]
+		public async Task<IActionResult> GetMeanTemperature(string city)
 		{
-			var weatherInfo = await _weatherService.GetWeatherAsync(city);
-			if (weatherInfo is null)
+			var meanTemperature = await _weatherService.GetMeanTemperatureAsync(city);
+			if (meanTemperature is null)
+			{
 				return NotFound();
+			}
 
-			_weatherRepository.SaveWeatherInfo(weatherInfo);
-			return Ok(weatherInfo);
+			return Ok(meanTemperature);
 		}
+
+		[HttpGet(Name = "GetMeanTemperatures")]
+		public async Task<IActionResult> GetMeanTemperatures(string city)
+		{
+			var meanTemperatures = await _weatherRepository.GetByCity(city);
+			if (meanTemperatures is null)
+			{
+				return NotFound();
+			}
+
+			return Ok(meanTemperatures);
+		}
+		
 	}
 }

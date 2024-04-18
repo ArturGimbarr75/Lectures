@@ -1,11 +1,13 @@
 using _041_Les_Car_API.DTO;
 using _041_Les_Car_API.Services;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _041_Les_Car_API.Controllers;
+
+[Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class CarController : ControllerBase
 {
 	private readonly ICarService _carService;

@@ -4,9 +4,9 @@ namespace _041_Les_Car_API.Repositories.EF;
 
 public class CarRepository : ICarRepository
 {
-	private readonly AddDbContext _context;
+	private readonly AppDbContext _context;
 
-	public CarRepository(AddDbContext context)
+	public CarRepository(AppDbContext context)
 	{
 		_context = context;
 	}

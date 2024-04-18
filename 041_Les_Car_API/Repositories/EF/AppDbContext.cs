@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _041_Les_Car_API.Repositories.EF;
 
-public class AddDbContext : DbContext
+public class AppDbContext : DbContext
 {
+	public DbSet<Account> Accounts { get; set; }
 	public DbSet<Car> Cars { get; set; }
 
-	public AddDbContext(DbContextOptions<AddDbContext> options) : base(options)
+	public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
 	{
 		Database.EnsureCreated();
 	}

@@ -1,4 +1,5 @@
 ﻿using _041_Les_Car_API.DTO;
+using _041_Les_Car_API.Helpers;
 using _041_Les_Car_API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,17 @@ public class AuthController : Controller
 	[HttpPost(Name = "SignUp")]
 	public async Task<IActionResult> SignUp([FromBody] LoginDto registerDto)
 	{
-		var result = _authService.SignUp(registerDto.Name, registerDto.Password);
+		var result = await _authService.SignUp(registerDto.Name, registerDto.Password);
+		if (result is null)
+			return BadRequest();
+
+		return Ok(result);
+	}
+
+	[HttpPost(Name = "SignUpAdmin")]
+	public async Task<IActionResult> SignUpAdmin([FromBody] LoginDto registerDto)
+	{
+		var result = await _authService.SignUp(registerDto.Name, registerDto.Password, Roles.ADMIN);
 		if (result is null)
 			return BadRequest();
 

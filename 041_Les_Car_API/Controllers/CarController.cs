@@ -1,4 +1,5 @@
 using _041_Les_Car_API.DTO;
+using _041_Les_Car_API.Helpers;
 using _041_Les_Car_API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,7 @@ public class CarController : ControllerBase
 		return Ok(_carService.GetCarsByColor(color));
 	}
 
+	[Authorize(Roles = Roles.ADMIN)]
 	[HttpPost("AddNewCar")]
 	public IActionResult AddNewCar([FromBody] CarDto car)
 	{
@@ -36,6 +38,7 @@ public class CarController : ControllerBase
 		return CreatedAtAction(nameof(GetAllCars), new { id = newCar.Id }, newCar);
 	}
 
+	[Authorize(Roles = Roles.ADMIN)]
 	[HttpPut("UpdateCar")]
 	public IActionResult UpdateCar([FromQuery] Guid id, [FromBody] CarDto car)
 	{
@@ -47,6 +50,7 @@ public class CarController : ControllerBase
 		return Ok(updatedCar);
 	}
 
+	[Authorize(Roles = Roles.ADMIN)]
 	[HttpDelete("{id}")]
 	public IActionResult DeleteCar(Guid id)
 	{

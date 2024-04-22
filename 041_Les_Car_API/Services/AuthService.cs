@@ -1,4 +1,5 @@
-﻿using _041_Les_Car_API.Models;
+﻿using _041_Les_Car_API.Helpers;
+using _041_Les_Car_API.Models;
 using _041_Les_Car_API.Repositories;
 
 namespace _041_Les_Car_API.Services;
@@ -18,12 +19,13 @@ public class AuthService : IAuthService
 		_jwtServices = jwtServices;
 	}
 
-	public async Task<Account> SignUp(string name, string password)
+	public async Task<Account> SignUp(string name, string password, string role = Roles.USER)
 	{
 		_passwordHasher.CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
 		var account = new Account
 		{
 			Name = name,
+			Role = role,
 			PasswordHash = passwordHash,
 			PasswordSalt = passwordSalt
 		};

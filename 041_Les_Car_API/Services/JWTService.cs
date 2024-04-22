@@ -22,11 +22,12 @@ public class JWTService : IJWTService
 		List<Claim> claims = new()
 		{
 			new Claim(ClaimTypes.Name, account.Name),
+			new Claim(ClaimTypes.Role, account.Role),
 			new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
 			new Claim(ClaimTypes.Expiration, DateTime.Now.AddMinutes(expiration).ToString())
 		};
 
-		string securityKey = _configuration["JWT:Key"];
+		string securityKey = _configuration["JWT:Key"]!;
 		SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(securityKey));
 
 		SigningCredentials credentials = new(key, SecurityAlgorithms.HmacSha256);
@@ -52,7 +53,7 @@ public class JWTService : IJWTService
 			new Claim(ClaimTypes.Expiration, DateTime.Now.AddMinutes(refreshExpiration).ToString())
 		};
 
-		string securityKey = _configuration["JWT:Key"];
+		string securityKey = _configuration["JWT:Key"]!;
 		SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(securityKey));
 
 		SigningCredentials credentials = new(key, SecurityAlgorithms.HmacSha256);

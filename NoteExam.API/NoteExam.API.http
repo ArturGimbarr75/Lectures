@@ -1,0 +1,6 @@
+@NoteExam.API_HostAddress = http://localhost:5170
+
+GET {{NoteExam.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

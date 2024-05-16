@@ -55,12 +55,53 @@ public class AuthService : IAuthService
 		return updatedUserResult;
 	}
 
-	public Task<ActionResult<User?>> LogoutAsync(string refreshToken)
+	public async Task<ActionResult> LogoutAsync(string refreshToken)
 	{
-		throw new NotImplementedException();
+		var (userId, expirationDate) = _tokenService.GetTokenIdAndExpirationDate(refreshToken);
+
+		if (userId is null || expirationDate is null)
+		{
+			return new UnauthorizedObjectResult("Invalid refresh token");
+		}
+
+		if (expirationDate < DateTime.UtcNow)
+		{
+			return new UnauthorizedObjectResult("Refresh token expired");
+		}
+
+		var existingUser = await _userRepository.GetUserByIdAsync(userId.Value);
+
+		if (existingUser is null)
+		{
+			return new NotFoundObjectResult("User not found");
+		}
+
+		if (existingUser.RefreshToken != refreshToken)
+		{
+			return new UnauthorizedObjectResult("Invalid refresh token");
+		}
+
+		User updatedUser = new()
+		{
+			Id = existingUser.Id,
+			Username = existingUser.Username,
+			PasswordHash = existingUser.PasswordHash,
+			PasswordSalt = existingUser.PasswordSalt,
+			RefreshToken = null,
+			JwtToken = null
+		};
+
+		User? updatedUserResult = await _userRepository.UpdateUserAsync(updatedUser);
+
+		if (updatedUserResult is null)
+		{
+			return new StatusCodeResult(500);
+		}
+
+		return new OkResult();
 	}
 
-	public async Task<ActionResult<User?>> RegisterAsync(RegistrationUserDto user)
+	public async Task<ActionResult<User?>> RegisterAsync(RegisterUserDto user)
 	{
 		User? existingUser = await _userRepository.GetUserByUsernameAsync(user.Username);
 		if (existingUser is not null)

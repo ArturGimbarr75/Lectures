@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NoteExam.DTO\NoteExam.DTO.csproj" />
     <ProjectReference Include="..\NoteExam.Models\NoteExam.Models.csproj" />
+    <ProjectReference Include="..\NoteExam.Persistence\NoteExam.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

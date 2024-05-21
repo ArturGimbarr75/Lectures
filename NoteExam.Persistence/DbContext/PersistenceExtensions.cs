@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using NoteExam.Persistence.Repositories;
+using NoteExam.Persistence.Repositories.EF;
 
 namespace NoteExam.Persistence.Context;
 
-public static class ServicesExtensions
+public static class PersistenceExtensions
 {
 	public static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
 	{
@@ -11,6 +13,8 @@ public static class ServicesExtensions
 		{
 			options.UseSqlServer(connectionString);
 		});
+
+		services.AddScoped<IUserRepository, UserRepository>();
 
 		return services;
 	}

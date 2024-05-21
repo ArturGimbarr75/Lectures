@@ -1,4 +1,5 @@
 using NoteExam.Persistence.Context;
+using NoteExam.Service;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddServices();
 builder.Services.AddPersistence(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
 var app = builder.Build();

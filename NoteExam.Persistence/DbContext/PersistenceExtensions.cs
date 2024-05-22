@@ -15,6 +15,9 @@ public static class PersistenceExtensions
 		});
 
 		services.AddScoped<IUserRepository, UserRepository>();
+		services.AddScoped<INoteRepository, NoteRepository>();
+		services.AddScoped<IImageRepository, ImageRepository>();
+		services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 		return services;
 	}

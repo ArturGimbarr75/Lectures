@@ -2,7 +2,7 @@
 
 namespace NoteExam.Persistence.Repositories;
 
-internal interface INoteRepository
+public interface INoteRepository
 {
 	Task<bool> IsUserOwnsNoteAsync(Guid userId, Guid noteId);
 	Task<Note?> GetNoteByIdAsync(Guid id);

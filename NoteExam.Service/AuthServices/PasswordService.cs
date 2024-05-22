@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
-namespace NoteExam.Service.Auth;
+namespace NoteExam.Service.AuthServices;
 
 public class PasswordService : IPasswordService
 {

@@ -3,7 +3,7 @@ using NoteExam.DTO;
 using NoteExam.Models;
 using NoteExam.Persistence.Repositories;
 
-namespace NoteExam.Service.Auth;
+namespace NoteExam.Service.AuthServices;
 
 public class AuthService : IAuthService
 {
@@ -57,6 +57,16 @@ public class AuthService : IAuthService
 
 	public async Task<ActionResult> LogoutAsync(string refreshToken)
 	{
+		if (string.IsNullOrWhiteSpace(refreshToken))
+		{
+			return new BadRequestObjectResult("Refresh token is required");
+		}
+
+		if (!_tokenService.IsTokenValid(refreshToken))
+		{
+			return new UnauthorizedObjectResult("Invalid refresh token");
+		}
+
 		var (userId, expirationDate) = _tokenService.GetTokenIdAndExpirationDate(refreshToken);
 
 		if (userId is null || expirationDate is null)
@@ -145,6 +155,16 @@ public class AuthService : IAuthService
 
 	public async Task<ActionResult<User?>> UpdateJwtAsync(string refreshToken)
 	{
+		if (string.IsNullOrWhiteSpace(refreshToken))
+		{
+			return new BadRequestObjectResult("Refresh token is required");
+		}
+
+		if (!_tokenService.IsTokenValid(refreshToken))
+		{
+			return new UnauthorizedObjectResult("Invalid refresh token");
+		}
+
 		var (userId, expirationDate) = _tokenService.GetTokenIdAndExpirationDate(refreshToken);
 
 		if (userId is null || expirationDate is null)

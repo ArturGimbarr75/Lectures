@@ -1,4 +1,4 @@
-﻿namespace NoteExam.Service.Auth;
+﻿namespace NoteExam.Service.AuthServices;
 
 public interface IPasswordService
 {

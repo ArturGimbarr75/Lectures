@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NoteExam.DTO;
 using NoteExam.Models;
-using NoteExam.Service.Auth;
+using NoteExam.Service.AuthServices;
 
 namespace NoteExam.API.Controllers;
 [ApiController]

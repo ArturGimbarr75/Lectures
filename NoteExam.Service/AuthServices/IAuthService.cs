@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NoteExam.DTO;
 
-namespace NoteExam.Service.Auth;
+namespace NoteExam.Service.AuthServices;
 
 public interface IAuthService
 {

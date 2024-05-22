@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace NoteExam.Service.Auth;
+namespace NoteExam.Service.AuthServices;
 
 public class TokenService : ITokenService
 {
@@ -87,5 +87,29 @@ public class TokenService : ITokenService
 		var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
 		return jwt.Claims.ToArray();
+	}
+
+	public bool IsTokenValid(string token)
+	{
+		var tokenHandler = new JwtSecurityTokenHandler();
+		var key = Encoding.ASCII.GetBytes(_configuration["JWT:Key"]!);
+		try
+		{
+			tokenHandler.ValidateToken(token, new TokenValidationParameters
+			{
+				ValidateIssuerSigningKey = true,
+				IssuerSigningKey = new SymmetricSecurityKey(key),
+				ValidateIssuer = true,
+				ValidIssuer = _configuration["JWT:Issuer"],
+				ValidateAudience = true,
+				ValidAudience = _configuration["JWT:Audience"],
+				ValidateLifetime = true
+			}, out _);
+			return true;
+		}
+		catch
+		{
+			return false;
+		}
 	}
 }

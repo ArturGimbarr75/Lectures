@@ -1,7 +1,7 @@
 ﻿using NoteExam.Models;
 using System.Security.Claims;
 
-namespace NoteExam.Service.Auth;
+namespace NoteExam.Service.AuthServices;
 
 public interface ITokenService
 {
@@ -9,4 +9,5 @@ public interface ITokenService
 	string GenerateRefreshToken(User user);
 	(Guid? id, DateTime? exp) GetTokenIdAndExpirationDate(string token);
 	Claim[] GetTokenClaims(string token);
+	bool IsTokenValid(string token);
 }
